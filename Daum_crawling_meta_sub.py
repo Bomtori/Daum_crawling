@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 # 초기 URL
-url = 'https://search.daum.net/search?w=fusion&nil_search=btn&DA=NTB&p=2&q=%EC%A3%BC%EC%8B%9D%ED%99%94%EC%83%81'
+url = 'https://search.daum.net/search?w=fusion&nil_search=btn&DA=NTB&p=2&q=%EB%A9%94%ED%83%80%EC%9D%B8%EC%82%AC%EC%9D%B4%ED%8A%B8'
 
 # 초기 URL에 접속하여 HTML 문서 가져오기
 response = requests.get(url)

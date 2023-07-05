@@ -18,14 +18,15 @@ c_menu_shares = div_twcColl.find_all('c-menu-share')
 datelist = []
 date_elements = soup.find_all(name='c-frag', attrs={'slot': 'info'})
 
-subtitlelist = []
-subtitle_elements = soup.find_all(name='c-contents-desc', attrs={'slot': 'contents'})
+sub_titlelist = []
+sub_title_elements = soup.select('c-contents-desc[slot="contents"]')
 
 for element in date_elements:
     datelist.append(element.string)
 
-for sub_element in subtitle_elements:
-    subtitlelist.append(sub_element)
+for element in sub_title_elements:
+    sub_title = ''.join([str(item) for item in element.contents if not isinstance(item, str) or not item.startswith('<b>')])
+    sub_titlelist.append(sub_title)
 
 # titles, subtitles, hrefs, dates를 함께 출력
 for i, c_menu_share in enumerate(c_menu_shares):
@@ -34,10 +35,10 @@ for i, c_menu_share in enumerate(c_menu_shares):
 
     if title and href:
         print("제목:", title)
-        print("내용:", subtitlelist[i].get_text())
+        print("내용:", sub_titlelist[i])
         print("링크:", href)
         print("날짜:", datelist[i])
-        print()
+        print("-"*50)
 
 # 다음 페이지부터 처리
 page = 2
@@ -69,7 +70,8 @@ while True:
         datelist.append(element.string)
 
     for sub_element in subtitle_elements:
-        subtitlelist.append(sub_element)
+        subtitle = ''.join([str(item) for item in sub_element.contents if not isinstance(item, str) or not item.startswith('<b>')])
+        subtitlelist.append(subtitle)
 
     # titles, subtitles, hrefs, dates를 함께 출력
     for i, c_menu_share in enumerate(c_menu_shares):
@@ -78,10 +80,10 @@ while True:
 
         if title and href:
             print("제목:", title)
-            print("내용:", subtitlelist[i].get_text())
+            print("내용:", subtitlelist[i])
             print("링크:", href)
             print("날짜:", datelist[i])
-            print()
+            print("-" * 50)
 
     # 페이지 번호 증가
     page += 1
